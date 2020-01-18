@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
 
@@ -38,7 +39,6 @@ public class JpaMain {
         Member member = new Member();
         member.setName("hello");
         member.setTeam(team);
-
         em.persist(member);
 
         em.flush();
@@ -52,16 +52,11 @@ public class JpaMain {
         Team findTeam = findMember.getTeam();
         System.out.println(findTeam.getName());
 
-        // 수정
-        Team teamB = new Team();
-        teamB.setName("teamB");
-        em.persist(teamB);
-
-        member.setTeam(teamB);
-
-        //조회
-        Team findTeamB = member.getTeam();
-        System.out.println(findTeamB.getName());
+        // 팀에서 멤버 데이터 가져오기
+        List<Member> members = findTeam.getMembers();
+        for (Member member1 : members) {
+            System.out.println("member1 = " + member1);
+        }
 
         /**
          *  객체 지향 모델링

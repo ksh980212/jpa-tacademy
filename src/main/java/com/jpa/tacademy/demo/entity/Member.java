@@ -28,4 +28,9 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
+
+    @Override
+    public String toString() {
+        return "id: " + id + ", " + "name: " + name;
+    }
 }
