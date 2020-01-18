@@ -19,8 +19,12 @@ public class Member {
 
     private int age;
 
-    @Column(name = "TEAM_ID")
-    private Long teamId;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
