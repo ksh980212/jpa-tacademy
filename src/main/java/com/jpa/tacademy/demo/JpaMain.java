@@ -41,10 +41,27 @@ public class JpaMain {
 
         em.persist(member);
 
+        em.flush();
+        em.clear();
+        /**
+         * 조회 Query 로그 보기 위해
+         * */
+
         // 조회
         Member findMember = em.find(Member.class, member.getId());
         Team findTeam = findMember.getTeam();
         System.out.println(findTeam.getName());
+
+        // 수정
+        Team teamB = new Team();
+        teamB.setName("teamB");
+        em.persist(teamB);
+
+        member.setTeam(teamB);
+
+        //조회
+        Team findTeamB = member.getTeam();
+        System.out.println(findTeamB.getName());
 
         /**
          *  객체 지향 모델링
