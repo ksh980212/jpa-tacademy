@@ -3,9 +3,7 @@ package com.jpa.tacademy.demo.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Setter
 @Getter
@@ -13,11 +11,17 @@ import javax.persistence.Id;
 public class Member {
 
     @Id
-    @Column(name = "ID")
-    private String id;
+    @GeneratedValue(strategy =  GenerationType.AUTO)
+    private Long id;
 
-    @Column(name = "NAME")
-    private String username;
+    @Column(name = "USERNAME")
+    private String name;
 
-    private Integer age;
+    private int age;
+
+    @Column(name = "TEAM_ID")
+    private Long teamId;
+
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
 }

@@ -1,6 +1,7 @@
 package com.jpa.tacademy.demo;
 
 import com.jpa.tacademy.demo.entity.Member;
+import com.jpa.tacademy.demo.entity.Team;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -31,22 +32,25 @@ public class JpaMain {
     }
 
     private static void logic(EntityManager em) {
-        String id = "id1";
+        Team team = new Team();
+        team.setName("teamA");
+        em.persist(team);
+
         Member member = new Member();
-        member.setId(id);
-        member.setUsername("seungho");
-        member.setAge(23);
+        member.setName("hello");
+        member.setTeamId(team.getId());
 
         em.persist(member);
 
-        member.setAge(22);
+        // 조회
+        Member findMember = em.find(Member.class, member.getId());
+        Long teamId = findMember.getTeamId();
 
-        Member findMember = em.find(Member.class, id);
-        System.out.println("findMember= " + findMember.getUsername() +", age= " + member.getAge());
-
-        List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
-        System.out.println("member.size= " + members.size());
-
-        em.remove(member);
+        Team findTeam = em.find(Team.class, teamId);
+        System.out.println(findTeam.getName());
+        /**
+         * 연관관계가 없어 직접 하나 하나 가져와야함..
+         * 객체지향 방법이 아니다.
+         * */
     }
 }
