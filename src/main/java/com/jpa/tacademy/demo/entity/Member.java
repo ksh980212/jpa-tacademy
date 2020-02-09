@@ -8,10 +8,14 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
+// @NameQuery => 컴파일시 에러 확인가능!
+@NamedQuery(
+        name = "Member.findByName",
+        query = "select m from Member m where m.name = :username")
 public class Member {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "USERNAME")
@@ -33,4 +37,5 @@ public class Member {
     public String toString() {
         return "id: " + id + ", " + "name: " + name;
     }
+
 }
